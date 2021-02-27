@@ -1,5 +1,10 @@
 # acidmge
 
+Analog Circuit Design using Grammatical Evolution (ACID-GE)
+Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+
+Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+
 This repository includes ACID-GE and ACID-MGE software
 
 A former version of the ACID-GE software was developed and used for all the circuits synthesized in the following paper, published in Applied Soft Computing:
