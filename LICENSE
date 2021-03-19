@@ -1,3 +1,13 @@
+Analog Circuit Design using Grammatical Evolution (ACID-GE)
+Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+
+Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+
+ACID-MGE and ACID-GE are licensed under GPLv3 License, with the exception of
+MersenneTwisterFast.java licensed under BSD License (see file for details) 
+and JavaCC licensed under BSD License
+
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
