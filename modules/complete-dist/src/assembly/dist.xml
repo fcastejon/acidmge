@@ -115,14 +115,14 @@
             <fileMode>0755</fileMode>
         </fileSet-->
 
-       <!--fileSet>
+       <fileSet>
           <directory>../acidmge/target/classes/scripts</directory>
           <outputDirectory>bin</outputDirectory>
           <includes>
             <include>*.sh</include>
           </includes>
             <fileMode>0755</fileMode>
-        </fileSet-->
+        </fileSet>
       
       <fileSet>
           <directory>../acidge/target/classes/grammar</directory>
