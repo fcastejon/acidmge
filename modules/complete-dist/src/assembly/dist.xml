@@ -1,0 +1,180 @@
+    <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+      <id>distribution</id>
+      <baseDirectory>acidge-dist</baseDirectory>
+      <formats>
+        <format>tgz</format>
+      </formats>
+      
+      <!--dependencySets>
+            <dependencySet>
+                <useProjectArtifact>false</useProjectArtifact>
+                <useTransitiveDependencies>true</useTransitiveDependencies>
+                <unpack>true</unpack>
+                <includes>
+                    <include>es.uned.simda:acidge:*:distribution</include>
+                </includes>
+            </dependencySet>
+
+            <dependencySet>
+                <useProjectArtifact>false</useProjectArtifact>
+                <useTransitiveDependencies>true</useTransitiveDependencies>            
+                <unpack>false</unpack>
+                <outputDirectory>lib</outputDirectory>
+            </dependencySet>
+      </dependencySets-->   
+      
+      <!-- moduleSets>
+       <moduleSet>
+        <useAllReactorProjects>false</useAllReactorProjects>
+        <includeSubModules>true</includeSubModules>
+
+        <includes>
+            <include>*:*</include>
+        </includes>
+
+        <binaries> 
+            <outputDirectory>acidge-dist/lib</outputDirectory> 
+            <unpack>false</unpack> 
+        </binaries>
+        
+        <sources>
+        <fileSets>
+        
+      <fileSet>
+      <directory>../acidge</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
+      </includes>
+      </fileSet>
+
+       <fileSet>
+          <directory>target/classes/scripts</directory>
+          <outputDirectory>bin</outputDirectory>
+          <includes>
+            <include>*.sh</include>
+          </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+   
+        
+        
+          <fileSet>
+          <directory>../acidge/target/classes/grammar</directory>
+          <outputDirectory>grammar</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+              
+      <fileSet>
+          <directory>target/classes/properties</directory>
+          <outputDirectory>properties</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+        
+	  <fileSet>
+	    <directory>.</directory>
+	    <outputDirectory>logs</outputDirectory>
+	    <excludes>
+      	<exclude>**/*</exclude>
+    	</excludes>
+	  </fileSet>
+        
+        </fileSets>
+        </sources>
+        
+        
+       </moduleSet>
+      </moduleSets-->
+      
+      <fileSets>
+     
+      <fileSet>
+      <directory>../acidge</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
+      </includes>
+      </fileSet>
+
+       <!--fileSet>
+          <directory>../acidge/target/classes/scripts</directory>
+          <outputDirectory>bin</outputDirectory>
+          <includes>
+            <include>*.sh</include>
+          </includes>
+            <fileMode>0755</fileMode>
+        </fileSet-->
+
+       <!--fileSet>
+          <directory>../acidmge/target/classes/scripts</directory>
+          <outputDirectory>bin</outputDirectory>
+          <includes>
+            <include>*.sh</include>
+          </includes>
+            <fileMode>0755</fileMode>
+        </fileSet-->
+      
+      <fileSet>
+          <directory>../acidge/target/classes/grammar</directory>
+          <outputDirectory>grammar</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+      
+      <fileSet>
+          <directory>../acidmge/target/classes/grammar</directory>
+          <outputDirectory>grammar</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+            
+      <fileSet>
+          <directory>../acidge/target/classes/properties</directory>
+          <outputDirectory>properties</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+        
+       <fileSet>
+          <directory>../acidmge/target/classes/properties</directory>
+          <outputDirectory>properties</outputDirectory>
+          <includes>
+            <include>**/*</include>
+          </includes>
+        </fileSet>
+    
+	  <fileSet>
+	    <directory>.</directory>
+	    <outputDirectory>logs</outputDirectory>
+	    <excludes>
+      	<exclude>*/**</exclude>
+    	</excludes>
+	  </fileSet>
+	  
+      </fileSets>
+      
+            <files>
+        <file>
+            <source>../acidge/target/acidge.jar</source>
+            <outputDirectory>lib</outputDirectory>
+        </file>
+        <file>
+            <source>../acidmge/target/acidmge.jar</source>
+            <outputDirectory>lib</outputDirectory>
+        </file>  
+    </files>
+
+    </assembly>

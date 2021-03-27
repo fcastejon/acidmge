@@ -1,0 +1,94 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * UniversalNetlistComputaTopology.ebnf
+ * 
+ * Gramática universal para generar gramáticas de la solución como netlistComputaBloquesBJT4.ebnf 
+ *
+ * Utiliza bloques de 4
+ *
+ * MNN 10
+ *
+ * Para circuitos computacionales
+ *)
+ 
+GRAMMAR = PARTE1, LIST, PARTE2;
+
+PARTE1 = '(*
+ * topologia.ebnf
+ *
+ * Para circuitos computacionales
+ *
+ * Gramática de generación de netlist utilizando bloques de componentes
+ * Considera que va a haber una cabecera y un pie, por lo que sólo se centra en componentes ajenos a la parte fija.  
+ * Requiere filtrar parámetros con valor nulo en los componentes, también renumerado de componentes
+ *
+ * Introduce resistencias y transistores PNP y NPN
+ *
+ *)
+ 
+ ';
+
+LIST = "LIST = ", LINEA;   
+
+LINEA = RESISTENCIA, FINAL | RESISTENCIA, LINEA | BJT, FINAL | BJT, LINEA;
+
+RESISTENCIA =  QUOTE, "R", SEP, nodo, SEP, nodo, SEP, dummy, SEP, QUOTE, ", ValorResistencia, EOL,", EOL;
+
+BJT = QUOTE, "Q", SEP, nodo, SEP, nodo, SEP, nodo, SEP, QUOTE, ", TipoBJT, SEP, dummy, SEP, dummy, SEP, dummy, EOL,", EOL;
+
+dummy = 'nulo1' | 'nulo2'; 
+
+(* 10 nodos nuevos, parte fija 6, nodo 1 no se puede generar para evitar puentear resistencia de fuente *)
+nodo = "0" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15";
+
+SEP = " ";
+
+QUOTE = "'";
+
+FINAL = "'* Fin', EOL;", EOL;
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+
+PARTE2=
+'
+ValorResistencia = digitonocero, DECIMAL, digito, EXP, digito, SEP, dummy; 
+
+(* 2N3904 es NPN y 2N3906 es PNP *)
+TipoBJT = "Q2N3904" | "Q2N3906";
+
+dummy = "nulo1" | "nulo2"; 
+
+digito = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+digitonocero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+EXP = "e";
+
+DECIMAL = ".";
+
+SEP = " ";
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+';

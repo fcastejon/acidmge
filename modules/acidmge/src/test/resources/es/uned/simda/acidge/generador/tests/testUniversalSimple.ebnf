@@ -1,0 +1,57 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * testUniversalSimple.ebnf
+ *
+ * Gramática universal Simple para pruebas iniciales 
+ *
+ * Se usa en TestGeneradorUniversalSimple y TestGeneradorGE2
+ *)
+
+GRAMMAR = PARTE1, NODOS, DUMMY;
+
+PARTE1 = '(* Comentario *)
+LIST = LINEA;
+LINEA = "FU ", nodo;
+';
+
+NODOS = NODO1 | NODO2 | NODO3; 
+
+NODO1 = '
+(* 6 nodos nuevos, 4 nodos de parte fija *)
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+';
+
+NODO2 = '
+(* 7 nodos nuevos, 4 nodos de parte fija *)
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+';
+
+NODO3 = '
+(* 8 nodos nuevos, 4 nodos de parte fija *)
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
+';
+
+DUMMY = "(*nulo1*)
+" | "(*nulo2*)
+"; 
+
+
+

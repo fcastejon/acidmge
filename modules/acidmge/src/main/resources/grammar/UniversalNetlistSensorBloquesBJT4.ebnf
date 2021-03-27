@@ -1,0 +1,240 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * UniversalNetlistSensorBloquesBJT4.ebnf
+ *
+ * Gramática universal para generar gramáticas de la solución como NetlistSensorBloquesBJT4.ebnf 
+ *
+ *)
+
+GRAMMAR = PARTE1, NODOS, PARTE2, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY, DUMMY;
+
+PARTE1 = '(*
+ * netlistSensorBloquesBJT4.ebnf
+ *
+ * Para el circuito sensor de temperatura
+ *
+ * Gramática de generación de netlist utilizando bloques de componentes
+ * Considera que va a haber una cabecera y un pie, por lo que sólo se centra en componentes ajenos a la parte fija.  
+ * Requiere filtrar parámetros con valor nulo en los componentes, también renumerado de componentes
+ *
+ * Introduce resistencias, condensadores, transistores PNP y NPN
+ * 
+ * Bloques de tamaño 7 bytes, 4 nodos de parte fija
+ *
+ * Dos partes por componentes: tipo + continuación, nodo1, nodo2, nodo3 (opcional)
+ * segunda parte: valor resistencia o condensador, dummy o  tipo transistor
+ *)
+
+LIST = HEADER, LINEA; 
+
+LINEA = RESISTENCIA | RESISTENCIA, LINEA | CONDENSADOR | CONDENSADOR, LINEA | BJT | BJT, LINEA;
+
+RESISTENCIA =  "R", SEP, nodo, SEP, nodo, SEP, dummy, SEP, ValorResistencia, EOL; 
+
+CONDENSADOR =  "C", SEP, nodo, SEP, nodo, SEP, dummy, SEP, ValorCondensador, EOL;
+
+BJT = "Q", SEP, nodo, SEP, nodo, SEP, nodo, SEP, TipoBJT, SEP, dummy, SEP, dummy, EOL;
+
+(* 2N3904 es NPN y 2N3906 es PNP *)
+TipoBJT = "Q2N3904" | "Q2N3906";
+
+dummy = "nulo1" | "nulo2"; 
+';
+
+NODOS = NODO1 | NODO2 | NODO3 | NODO4 | NODO5 | NODO6 | NODO7 | NODO8 | NODO9 | NODO10 | NODO11 | NODO12 | NODO13 | NODO14 | NODO15 | NODO16 | NODO17 | NODO18 | NODO19 | NODO20 | NODO21 | NODO22 | NODO23 | NODO24 | NODO25;
+
+NODO1 = '
+HEADER = "* MNN:6
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+';
+
+NODO2 = '
+HEADER = "* MNN:7
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+';
+
+NODO3 = '
+HEADER = "* MNN:8
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
+';
+
+NODO4 = '
+HEADER = "* MNN:9
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+';
+
+NODO5 = '
+HEADER = "* MNN:10
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13";
+';
+
+NODO6 = '
+HEADER = "* MNN:11
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14";
+';
+
+NODO7 = '
+HEADER = "* MNN:12
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15";
+';
+
+NODO8 = '
+HEADER = "* MNN:13
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16";
+';
+
+NODO9 = '
+HEADER = "* MNN:14
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17";
+';
+
+NODO10 = '
+HEADER = "* MNN:15
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18";
+';
+
+NODO11 = '
+HEADER = "* MNN:16
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19";
+';
+
+NODO12 = '
+HEADER = "* MNN:17
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20";
+';
+
+NODO13 = '
+HEADER = "* MNN:18
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21";
+';
+
+NODO14 = '
+HEADER = "* MNN:19
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22";
+';
+
+NODO15 = '
+HEADER = "* MNN:20
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23";
+';
+
+NODO16 = '
+HEADER = "* MNN:21
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24";
+';
+
+NODO17 = '
+HEADER = "* MNN:22
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25";
+';
+
+NODO18 = '
+HEADER = "* MNN:23
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26";
+';
+
+NODO19 = '
+HEADER = "* MNN:24
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27";
+';
+
+NODO20 = '
+HEADER = "* MNN:25
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28";
+';
+
+NODO21 = '
+HEADER = "* MNN:26
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29";
+';
+
+NODO22 = '
+HEADER = "* MNN:27
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30";
+';
+
+NODO23 = '
+HEADER = "* MNN:28
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31";
+';
+
+NODO24 = '
+HEADER = "* MNN:29
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32";
+';
+
+NODO25 = '
+HEADER = "* MNN:30
+";
+nodo = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16" | "17" | "18" | "19" | "20" | "21" | "22" | "23" | "24" | "25" | "26" | "27" | "28" | "29" | "30" | "31" | "32" | "33";
+';
+
+PARTE2=
+'
+ValorResistencia = digitonocero, DECIMAL, digito, EXP, digito; 
+
+ValorCondensador = digitonocero, DECIMAL, digito, EXP, expCondensador;
+
+digito = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+digitonocero = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+expCondensador = "-12" | "-11" | "-10" | "-9" | "-8" | "-7" | "-6" | "-5" | "-4" | "-3";
+
+SEP = " ";
+
+EXP = "e";
+
+DECIMAL = ".";
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+';
+
+DUMMY = "(*nulo1*)
+" | "(*nulo2*)
+"; 
+
