@@ -1,0 +1,73 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * netlistSensorBloquesBJT2.ebnf
+ *
+ * Gramática de generación de netlist utilizando bloques de componentes
+ * Los componentes tienen tamaño fijo
+ * Requiere filtrar líneas con valores nulos y valor nulo en transistor
+ *
+ * Considera que va a haber una cabecera y un pie, por lo que sólo se centra en componentes ajenos a la parte fija
+ *
+ * Introduce resistencias, condensadores, transistores PNP y NPN
+ * Variación, los componentes pueden aparecer en cualquier orden
+ * 
+ * Adaptado para 6 nodos nuevos
+ *
+ *)
+ 
+LIST = LINEA; 
+
+LINEA = RESISTENCIA | RESISTENCIA, LINEA | CONDENSADOR | CONDENSADOR, LINEA | BJT | BJT, LINEA;
+
+RESISTENCIA =  "R", SEP, nodo, SEP, nodo, SEP, ValorResistencia, EOL; 
+
+CONDENSADOR =  "C", SEP, nodo, SEP, nodo, SEP, ValorCondensador, EOL;
+
+BJT = "Q", SEP, nodo, SEP, nodo, SEP, nodo, SEP, TipoBJT, SEP, dummy, EOL;
+
+(* 2N3904 es NPN y 2N3906 es PNP *)
+TipoBJT = "Q2N3904" | "Q2N3906";
+
+dummy = 'nulo1' | 'nulo2'; 
+
+(* 6 nodos nuevos, 4 nodos de parte fija *)
+nodo = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+	
+ValorResistencia = digitonocero, DECIMAL, digito, EXP, digito; 
+
+ValorCondensador = digitonocero, DECIMAL, digito, EXP, expCondensador;
+
+digito = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+digitonocero = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+expCondensador = "-12" | "-11" | "-10" | "-9" | "-8" | "-7" | "-6" | "-5" | "-4" | "-3";
+
+SEP = ' ';
+
+EXP = 'e';
+
+DECIMAL = '.';
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+

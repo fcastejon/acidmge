@@ -1,0 +1,27 @@
+Netlist generada: LIST (C 5.0e-3 (END))(PAIR_CONNECT(NOP(END))(C 6.9e-4 (R 5.0e4 (NOP(END))))(R 7.9e6 (PARALLEL(THREE_GROUND(CUT)(END)(NOP(END)))(C 7.6e-5 (C 7.6e-5 (PARALLEL(CUT)(C 8.1e-3 (PARALLEL(C 2.1e-10 (C 8.9e-9 (C 7.7e-5 (NOP(C 8.5e-5 (C 7.6e-10 (C 2.0e-3 (END))))))))(C 2.1e-11 (END))))))))))(C 6.9e-4 (R 5.0e4 (NOP(END))))(R 7.9e6 (PARALLEL(THREE_GROUND(CUT)(END)(NOP(END)))(C 7.6e-5 (C 7.6e-5 (PARALLEL(CUT)(C 8.1e-3 (PARALLEL(C 2.1e-10 (C 8.9e-9 (C 7.7e-5 (NOP(C 8.5e-5 (C 7.6e-10 (C 2.0e-3 (END))))))))(C 2.1e-11 (END)))))))))(C 5.3e-9 (END))
+V1 1 0 dc 20.0
+VAC1 2 0 0.0 ac 0.0010 sin(0 1.9 1000)
+R1 2 3 600.0
+R2 4 0 100.0K
+Q1 7 6 8 2N2222
+C1 3 5 5.0m
+R5 1 7 50.0K
+C3 7 4 5.3n
+R6 5 6 50.0K
+R8 0 12 7.9Meg
+C23 8 0 2.0m
+C24 5 12 2.0m
+C12 8 0 21.0p
+C14 5 12 21.0p
+.MODEL 2N2222 NPN (is=19f bf=150 vaf=100 ikf=0.18 ise=50p ne=2.5 br=7.5 
++ var=6.4 ikr=12m isc=8.7p nc=1.2 rb=50 re=0.4 rc=0.3 cje=26p tf=0.5n 
++ cjc=11p tr=7n xtb=1.5 kf=0.032f af=1) 
+
+
+.op 
+.ac DEC 1 1 100meg 
+.print ac vm(4), vp(4), i(VAC1), v(3) 
+.tran 20u 1m 
+.four 1k v(4) 
+.end 
+

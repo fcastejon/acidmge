@@ -1,0 +1,19 @@
+Netlist generada: LIST (NOP(END))(C 4.7e2 (END))(END)(FLIP(FLIP(FLIP(SERIES(C 6.1e8 (END))(END)(PARALLEL(PAIR_CONNECT(CUT)(PAIR_CONNECT(C 8.6e8 (END))(NOP(CUT))(TWO_VIA3(PARALLEL(R 6.1e2 (END))(END))(R 4.3e4 (END))))(NOP(END)))(CUT))))))
+V1 1 0 dc 20.0
+VAC1 2 0 0.0 ac 1.0
+R1 2 3 600.0
+R2 4 0 100.0K
+Q1 6 3 0 2N2222
+C1 1 6 470.0p
+C3 12 14 860.0u
+R3 14 12 43.0K
+.MODEL 2N2222 NPN (is=19f bf=150 vaf=100 ikf=0.18 ise=50p ne=2.5 br=7.5 
++ var=6.4 ikr=12m isc=8.7p nc=1.2 rb=50 re=0.4 rc=0.3 cje=26p tf=0.5n 
++ cjc=11p tr=7n xtb=1.5 kf=0.032f af=1) 
+
+
+.op 
+.ac DEC 1 10 100k 
+.print ac vm(4), vp(4), i(VAC1), v(3) 
+.end 
+

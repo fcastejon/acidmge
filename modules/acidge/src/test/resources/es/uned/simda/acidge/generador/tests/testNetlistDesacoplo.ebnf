@@ -1,0 +1,69 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * netlistDesacoplo.ebnf
+ *
+ * Gramática de generación de netlist para amplificador de 1 etapa en emisor común
+ *
+ * Considera que va a haber una cabecera y un pie, por lo que sólo se centra en componentes ajenos a la parte fija
+ * Introduce dos condensadores de desacoplo, en los que se permite modificar su valor
+ *
+ * Espera que el transistor vaya en los nodos: 6, 5, 7 (c, b, e)
+ *)
+
+LIST = DES1, DES2, VLIST;
+
+VLIST = VLIST, LINEA | LINEA;
+
+DES1 = "C", SEP, "3", SEP, "5", SEP, ValorCondensador, EOL;
+
+DES2 = "C", SEP, "6", SEP, "4", SEP, ValorCondensador, EOL;
+
+LINEA = RESISTENCIA, EOL | CONDENSADOR, EOL;
+
+RESISTENCIA =  "R", SEP, nodo, SEP, nodo, SEP, ValorResistencia; 
+
+CONDENSADOR =  "C", SEP, nodo, SEP, nodo, SEP, ValorCondensador;
+
+(* No permite añadir conexiones a los nodos 2, 3 y 4 *)
+nodo = '0' | '1' | '5' | '6' | '7' | '8' | '9';
+	
+ValorResistencia = valor, sufijoResistencia; 
+
+ValorCondensador = valor, sufijoCondensador;
+
+valor = digitonocero, digito | digitonocero, digito, cero | digitonocero, digito, cero, cero;
+
+sufijoResistencia = "" | "k" | "Meg" | "G";
+
+sufijoCondensador = "m" | "u" | "n" | "p";
+
+digito = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+digitonocero = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+cero = "0";
+
+SEP = ' ';
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+

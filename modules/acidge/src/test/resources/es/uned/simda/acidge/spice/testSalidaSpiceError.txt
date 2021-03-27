@@ -1,0 +1,286 @@
+Warning: singular matrix:  check nodes 14 and 14
+
+Note: Starting dynamic gmin stepping
+Trying gmin =   1.0000E-03 Note: One successful gmin step
+Trying gmin =   1.0000E-04 Note: One successful gmin step
+Trying gmin =   1.0000E-05 Note: One successful gmin step
+Trying gmin =   1.0000E-06 Note: One successful gmin step
+Trying gmin =   1.0000E-07 Note: One successful gmin step
+Trying gmin =   1.0000E-08 Note: One successful gmin step
+Trying gmin =   1.0000E-09 Note: One successful gmin step
+Trying gmin =   1.0000E-10 Note: One successful gmin step
+Trying gmin =   1.0000E-11 Note: One successful gmin step
+Trying gmin =   1.0000E-12 Note: One successful gmin step
+Trying gmin =   1.0000E-12 Note: One successful gmin step
+Note: Dynamic gmin stepping completed
+
+Warning: singular matrix:  check nodes 14 and 14
+
+Note: Starting dynamic gmin stepping
+Trying gmin =   1.0000E-03 Note: One successful gmin step
+Trying gmin =   1.0000E-04 Note: One successful gmin step
+Trying gmin =   1.0000E-05 Note: One successful gmin step
+Trying gmin =   1.0000E-06 Note: One successful gmin step
+Trying gmin =   1.0000E-07 Note: One successful gmin step
+Trying gmin =   1.0000E-08 Note: One successful gmin step
+Trying gmin =   1.0000E-09 Note: One successful gmin step
+Trying gmin =   1.0000E-10 Note: One successful gmin step
+Trying gmin =   1.0000E-11 Note: One successful gmin step
+Trying gmin =   1.0000E-12 Note: One successful gmin step
+Trying gmin =   1.0000E-12 Note: One successful gmin step
+Note: Dynamic gmin stepping completed
+
+
+Circuit: netlist generada: list (nop(end))(c 4.7e2 (end))(end)(flip(flip(flip(series(c 6.1e8 (end))(end)(parallel(pair_connect(cut)(pair_connect(c 8.6e8 (end))(nop(cut))(two_via3(parallel(r 6.1e2 (end))(end))(r 4.3e4 (end))))(nop(end)))(cut))))))
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+No. of Data Rows : 5
+
+No. of Data Rows : 1
+	Node                                  Voltage
+	----                                  -------
+	----	-------
+	V(14)                            0.000000e+00
+	V(12)                            0.000000e+00
+	V(6)                             -3.04494e-48
+	V(4)                             0.000000e+00
+	V(3)                             1.816883e-57
+	V(2)                             0.000000e+00
+	V(1)                             2.000000e+01
+
+	Source	Current
+	------	-------
+
+	v1#branch                        0.000000e+00
+	vac1#branch                      3.028139e-60
+
+ BJT models (Bipolar Junction Transistor)
+      model                2n2222
+
+       type                   npn
+       tnom                    27
+         is               1.9e-14
+         bf                   150
+         nf                     1
+        vaf                   100
+        ikf                  0.18
+        ise                 5e-11
+         ne                   2.5
+         br                   7.5
+         nr                     1
+        var                   6.4
+        ikr                 0.012
+        isc               8.7e-12
+         nc                   1.2
+         rb                    50
+        irb                     0
+        rbm                    50
+         re                   0.4
+         rc                   0.3
+        cje               2.6e-11
+        vje                  0.75
+        mje                  0.33
+         tf                 5e-10
+        xtf                     0
+        vtf                     0
+        itf                     0
+        ptf                     0
+        cjc               1.1e-11
+        vjc                  0.75
+        mjc                  0.33
+       xcjc                     1
+         tr                 7e-09
+        cjs                     0
+        vjs                  0.75
+        mjs                     0
+        xtb                   1.5
+         eg                  1.11
+        xti                     3
+         fc                   0.5
+         kf               3.2e-17
+         af                     1
+        iss                     0
+         ns                     1
+       tlev                     0
+      tlevc                     0
+       tbf1                     0
+       tbf2                     0
+       tbr1                     0
+       tbr2                     0
+      tikf1                     0
+      tikf2                     0
+      tikr1                     0
+      tikr2                     0
+      tirb1                     0
+      tirb2                     0
+       tnc1                     0
+       tnc2                     0
+       tne1                     0
+       tne2                     0
+       tnf1                     0
+       tnf2                     0
+       tnr1                     0
+       tnr2                     0
+       trb1                     0
+       trb2                     0
+       trc1                     0
+       trc2                     0
+       tre1                     0
+       tre2                     0
+       trm1                     0
+       trm2                     0
+      tvaf1                     0
+      tvaf2                     0
+      tvar1                     0
+      tvar2                     0
+        ctc                     0
+        cte                     0
+        cts                     0
+       tvjc                     0
+       tvje                     0
+       tvjs                     0
+      titf1                     0
+      titf2                     0
+       ttf1                     0
+       ttf2                     0
+       ttr1                     0
+       ttr2                     0
+      tmje1                     0
+      tmje2                     0
+      tmjc1                     0
+      tmjc2                     0
+      tmjs1                     0
+      tmjs2                     0
+       tns1                     0
+       tns2                     0
+        nkf                   0.5
+
+ Capacitor models (Fixed capacitor)
+      model                     C
+
+        cap                     0
+         cj                     0
+       cjsw                     0
+       defw                 1e-05
+       defl                     0
+     narrow                     0
+      short                     0
+        tc1                     0
+        tc2                     0
+         di                     0
+      thick                     0
+
+ Resistor models (Simple linear resistor)
+      model                     R
+
+        rsh                     0
+     narrow                     0
+      short                     0
+        tc1                     0
+        tc2                     0
+       defw                 1e-05
+         kf                     0
+         af                     0
+
+ BJT: Bipolar Junction Transistor
+     device                    q1
+      model                2n2222
+         ic          -3.04494e-60
+         ib           3.04494e-60
+         ie           3.04494e-60
+        vbe           1.96828e-57
+        vbc           3.04494e-48
+         gm                     0
+        gpi           7.74275e-10
+        gmu           2.81408e-10
+         gx                  0.02
+         go           7.34607e-13
+        cpi               2.6e-11
+        cmu               1.1e-11
+        cbx                     0
+       csub                     0
+
+ Capacitor: Fixed capacitor
+     device                    c3                    c1
+      model                     C                     C
+capacitance               0.00086               4.7e-10
+        cap               0.00086               4.7e-10
+          c               0.00086               4.7e-10
+      dtemp                     0                     0
+          i                     0                     0
+          p                     0                     0
+
+ Resistor: Simple linear resistor
+     device                    r3                    r2                    r1
+      model                     R                     R                     R
+ resistance                 43000                100000                   600
+         ac                 43000                100000                   600
+      dtemp                     0                     0                     0
+      noisy                     1                     1                     1
+          i                     0                     0          -3.02814e-60
+          p                     0                     0          5.50178e-117
+
+ Vsource: Independent voltage source
+     device                  vac1                    v1
+         dc                     0                    20
+      acmag                     1                     0
+      pulse         -         -
+       sine         -         -
+        sin         -         -
+        exp         -         -
+        pwl         -         -
+       sffm         -         -
+         am         -         -
+    trnoise         -         -
+   trrandom         -         -
+          i           3.02814e-60                     0
+          p                    -0                    -0
+
+netlist generada: list (nop(end))(c 4.7e2 (end))(end)(flip(flip(flip(series(c 6.1e8 (end))(end)(parallel(pair_connect(cut)(pair_connect(c 8.6e8 (end))(nop(cut))(two_via3(parallel(r 6.1e2 (end))(end))(r 4.3e4 (end))))(nop(end)))(cut))))))
+AC Analysis  Mon Jan 21 20:10:45  2013
+--------------------------------------------------------------------------------
+Index   frequency       vm(4)           vp(4)           
+--------------------------------------------------------------------------------
+0	1.000000e+01	0.000000e+00	0.000000e+00	
+1	1.000000e+02	0.000000e+00	0.000000e+00	
+2	1.000000e+03	0.000000e+00	0.000000e+00	
+3	1.000000e+04	0.000000e+00	0.000000e+00	
+4	1.000000e+05	0.000000e+00	0.000000e+00	
+
+netlist generada: list (nop(end))(c 4.7e2 (end))(end)(flip(flip(flip(series(c 6.1e8 (end))(end)(parallel(pair_connect(cut)(pair_connect(c 8.6e8 (end))(nop(cut))(two_via3(parallel(r 6.1e2 (end))(end))(r 4.3e4 (end))))(nop(end)))(cut))))))
+AC Analysis  Mon Jan 21 20:10:45  2013
+--------------------------------------------------------------------------------
+Index   frequency       vac1#branch                     
+--------------------------------------------------------------------------------
+0	1.000000e+01	-1.04294e-09,	-2.31147e-09	
+1	1.000000e+02	-1.04331e-09,	-2.30899e-08	
+2	1.000000e+03	-1.07762e-09,	-2.30897e-07	
+3	1.000000e+04	-4.50953e-09,	-2.30896e-06	
+4	1.000000e+05	-3.47623e-07,	-2.30845e-05	
+
+netlist generada: list (nop(end))(c 4.7e2 (end))(end)(flip(flip(flip(series(c 6.1e8 (end))(end)(parallel(pair_connect(cut)(pair_connect(c 8.6e8 (end))(nop(cut))(two_via3(parallel(r 6.1e2 (end))(end))(r 4.3e4 (end))))(nop(end)))(cut))))))
+AC Analysis  Mon Jan 21 20:10:45  2013
+--------------------------------------------------------------------------------
+Index   frequency       v(3)                            
+--------------------------------------------------------------------------------
+0	1.000000e+01	9.999994e-01,	-1.38688e-06	
+1	1.000000e+02	9.999994e-01,	-1.38540e-05	
+2	1.000000e+03	9.999994e-01,	-1.38538e-04	
+3	1.000000e+04	9.999973e-01,	-1.38538e-03	
+4	1.000000e+05	9.997914e-01,	-1.38507e-02	
+
+elapsed time since last call: 0.030 seconds.
+
+Total elapsed time: 0.030 seconds.
+
+Total DRAM available = 1000.773438 MB.
+DRAM currently available = 81.351562 MB.
+Total ngspice program size = 5.581055 MB.
+Resident set size = 805.000 kB.
+Shared ngspice pages = 603.000 kB.
+Text (code) pages = 1.102539 MB.
+Stack = 0 bytes.
+Library pages = 3.095703 MB.
+

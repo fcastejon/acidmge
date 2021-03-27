@@ -1,0 +1,54 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(* 
+ * EBNFGrammar.ebnf: gramática del lenguaje EBNF de descripción de gramáticas
+ * 
+ * Permite la carga de gramáticas desde fichero a la clase Gramatica
+ *  
+ * Esta definición se ha hecho de forma simplificada mostrando los terminales directamente
+ * En JavaCC se utiliza el nivel léxico para la definición de los terminales
+ *
+ * La gestión de los comentarios se ha realizado a nivel léxico como cadenas SKIP
+ *)
+ 
+SYNTAX = SYNTAX_RULE, { SYNTAX_RULE };
+SYNTAX_RULE = METAIDENT, '=', LISTADEF, ';';
+LISTADEF = DEFINICION, { '|', DEFINICION };
+DEFINICION = TERMINO, { ',', TERMINO };
+TERMINO = FACTOR, [ '-', EXCEPCION };
+EXCEPCION = FACTOR;
+FACTOR = [ENTERO, '*'], PRIMARIO;
+PRIMARIO = OPTIONAL | REPEATED | SPECIAL | GROUPED | METAIDENT | TERMINAL | EMPTY;
+EMPTY = ;
+OPCIONAL = '[', LISTADEF, ']';
+REPEATED = '{', LISTADEF, '}';
+GROUPED = '(', LISTADEF, ')';
+TERMINAL = "'", CHARACTER - "'", (CHARACTER - "'"), "'" |
+	'"', CHARACTER - '"', (CHARACTER - '"'), '"';
+METAIDENT = LETTER, { LETTER | DIGITO };
+ENTERO = DIGITO, { DIGITO };
+ESPECIAL = '?', (CHARACTER - '?'), '?';
+
+(* Gestionado a nivel léxico *)
+COMENTARIO = '(*', { COMMENT_SYMBOL }, '*)';
+COMMENT_SYMBOL = COMMENT | TERMINAL | ESPECIAL | CHARACTER;
+
+
+

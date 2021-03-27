@@ -1,0 +1,24 @@
+Amplificador ejercicio
+Vcc 1 0 dc 20
+V1 2 0 0.001 ac 1 sin(0 1 1K)
+C1 3 2 300n
+R1 1 3 56k
+R2 3 0 11k
+Rc 1 5 6.8k
+Re 4 0 1.6k
+Q1 5 3 4 2N2222
+*.model TP npn level=1 VJE=0.6 
+.MODEL 2N2222 NPN (is=19f bf=150 vaf=100 ikf=0.18 ise=50p ne=2.5 br=7.5
++ var=6.4 ikr=12m isc=8.7p nc=1.2 rb=50 re=0.4 rc=0.3 cje=26p tf=0.5n
++ cjc=11p tr=7n xtb=1.5 kf=0.032f af=1)
+
+*Q1 1 3 4 MOD1
+
+.op 
+.ac OCT 5 32 4096
+.print ac vm(5), vp(5), i(V1), v(2)
+*.print ac v(1,2) v(2)
+*.plot ac v(2)
+.end
+
+

@@ -1,0 +1,405 @@
+/*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/*
+ * EBNFGrammar: grammar for the EBNF, grammar description language
+ * 
+ * It allows grammar file loading to a Gramatica class
+ *
+ * It is reasonably based on ISO/IEC 14977, but not all options are implemented
+ *
+ * It includes grammar expansion with new labels and variables for GE
+ */
+
+options
+{
+  MULTI=true;
+  VISITOR=true;
+  STATIC=false;
+}
+
+PARSER_BEGIN(EBNFGrammar)
+
+package es.uned.simda.acidge.generador.parser;
+
+import java.util.logging.Logger;
+
+/* Clase EBNFGrammar */
+public class EBNFGrammar
+{
+	private final static Logger logger = Logger.getLogger(EBNFGrammar.class.getName());
+	private boolean estricto = true;
+
+	public void setParseOnly() { estricto = false;	}
+}
+
+PARSER_END(EBNFGrammar)
+
+//Lista de caracteres a ignorar
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+//Gestión de comentarios (del TokenManager MiniTutorial de JavaCC) 
+SKIP :
+{  "(*" : COMMENT
+}
+
+< COMMENT > SKIP:
+{
+   "*)" : DEFAULT
+}
+
+< COMMENT > MORE:
+{
+  < ~[] >
+}
+
+
+//Lectura de cadenas entrecomilladas
+//Se hace como estados del Lexer, pero finalmente se entregan tokens que se interpretan en la gramática
+//No he encontrado como definir una vez los caracteres y no tenerlos que poner en las reglas...
+
+< DEFAULT > TOKEN :
+{  < QUOTE1: "'" > : ESTADO_CADENA1
+| 
+  < QUOTE2: "\"" > : ESTADO_CADENA2
+|
+  < SPECIAL: "?" > : ESTADO_SPECIAL
+}
+
+< ESTADO_CADENA1 > TOKEN:
+{  < CQUOTE1: "'" > : DEFAULT
+| 
+  < TERMINAL1: (~["'"])+ >
+}
+
+< ESTADO_CADENA2 > TOKEN:
+{
+  < CQUOTE2: "\"" > : DEFAULT
+| 
+  < TERMINAL2: (~["\""])+ >
+}
+
+< ESTADO_SPECIAL > TOKEN:
+{
+  < CSPECIAL: "?" > : DEFAULT
+| 
+  < SPECIALSEQ: (~["?"])+ >
+}
+
+
+
+//Clasificación de caracteres normales y especiales 
+TOKEN :
+{
+  < #LETTER: ["a"-"z","A"-"Z"] > |
+  < #DIGIT: [ "0"-"9" ] > |
+  < COMMA: "," > |
+  < EQUAL: "=" > |
+  < DEFSEP: ["|", "!", "/"] > |
+  < START_GROUP: "(" > |
+  < END_GROUP: ")" > |
+  < START_OPTION: "[" > |
+  < END_OPTION: "]" > |
+  < START_REPEAT: "{" > |
+  < END_REPEAT: "}" > |
+  < MINUS: "-" > |
+  < TERMINATOR: ";" > |
+  < REPETITION: "*" > |
+  < START_EXP: "<" > |
+  < END_EXP:  ">" > |
+  < VAR_START: "%" > |
+  < COLON: ":" > |
+  < PLUS: "+" > |  
+  < INTEGER: (< DIGIT >)+ > |
+  < GERESULT: "GEResult" > |
+  < GECODONVALUE: "GECodonValue" > |
+  < GEXOMARKER: "GEXOMarker" > |
+  < METAIDENT: < LETTER > ( < LETTER > | < DIGIT > )* > |
+  < VAR: < VAR_START > < LETTER > ( < LETTER > | < DIGIT > )* > 
+}
+
+
+/* Nodo raiz */
+ASTSyntax Syntax() #Syntax :
+{}
+{
+   SyntaxRule() ( SyntaxRule() )*
+   {
+     return jjtThis;
+   }
+}
+
+void SyntaxRule() #SyntaxRule :
+{}
+{
+	MetaIdent() < EQUAL > ListaDef() < TERMINATOR >
+    {
+    }
+}
+
+void ListaDef() #Regla :
+{}
+{
+	Definicion() ( < DEFSEP > Definicion() )*
+   {
+   }
+}
+
+void Definicion() #Subregla :
+{}
+{
+	Term() ( < COMMA > Term() )*
+   {
+   }
+}
+
+void Term() #void :
+{
+  Token token = null;
+}
+{
+  	//Factor() ( < MINUS > Excepcion() )*
+  	Factor() ( token = < MINUS > Excepcion() )*
+   	{
+   	  	if((token != null) && estricto)
+     		throw new ParseException("Regla no soportada");
+   	}
+}
+
+void Factor() #void :
+{
+  Token rep = null;
+}
+{
+  	//Se distingue por la existencia del INTEGER
+	[ rep = < INTEGER > < REPETITION > ] Primario()
+   	{
+	if(rep != null)
+   		{		logger.info("Repetición " + rep.image);
+
+   	  	if(estricto)
+     		throw new ParseException("Regla no soportada");
+	  	}
+   	}
+   	/*
+| 
+   	< INTEGER > < REPETITION > Primario()
+   	{		if(estricto)
+     		throw new ParseException("Regla no soportada");
+   	}
+   	*/
+}
+
+void Excepcion() #void :
+{}
+{
+	Factor()
+	{	}
+}
+
+void Primario() #void :
+{}
+{
+	Optional()	{	}
+|
+	Repeated()
+	{	}
+|
+	Special()
+	{	}
+|
+	Grouped()
+	{	}
+|
+	MetaIdent() 
+	{	}
+|
+	Terminal() 
+	{	}
+|
+    Expansion()
+	{
+	}
+/* Eliminada esta opción indicada en el estándar por dar lugar a indeterminación al refactorizar Factor()
+|
+	Empty()
+	{
+	}
+*/
+}
+
+void Optional() #void :
+{}
+{
+	< START_OPTION > ListaDef() < END_OPTION >
+	{
+		if(estricto)
+     		throw new ParseException("Regla no soportada");
+	}
+}
+
+void Repeated() #void :
+{}
+{
+	< START_REPEAT > ListaDef() < END_REPEAT >
+	{
+	  	if(estricto)
+     		throw new ParseException("Regla no soportada");
+	}
+}
+
+void Grouped() #void :
+{}
+{
+	< START_GROUP > ListaDef() < END_GROUP >
+	{
+		if(estricto)
+     		throw new ParseException("Regla no soportada");
+	}
+}
+
+void MetaIdent() #NoTerminal :
+{
+  	Token token = null;
+}
+{
+  	token = < METAIDENT > 
+	{
+	  //logger.finer(token.image);
+	  jjtThis.jjtSetValue(token.image);
+	}
+|
+  	token = < VAR > 
+	{
+	  //logger.finer(token.image);
+	  jjtThis.jjtSetValue(token.image);
+	}
+
+}
+
+void Terminal() #Terminal :
+{
+    Token token = null;
+}
+{
+  	<  QUOTE1 > [ token=< TERMINAL1 > ] < CQUOTE1 >
+	{
+	  	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+	}
+| 
+	<  QUOTE2 > [ token=< TERMINAL2 > ] < CQUOTE2 >
+	{
+	 	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+	}
+	
+}
+
+void Expression() #Expression :
+{
+  Token token = null;}
+{
+  token = < INTEGER > 
+  {
+  	//logger.finer(token.image);
+  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+  }
+| 
+  token = < VAR > ( operator() Expression() )
+  {
+  	//logger.finer(token.image);
+  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+  }
+}
+
+void operator() #Operator :
+{
+  Token token = null;
+}
+{
+  token = < PLUS > 
+  {
+    //logger.finer(token.image);
+  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+  }
+|
+  token = < MINUS >
+  {
+    //logger.finer(token.image);
+  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+  }
+}
+
+
+void Expansion() #Expansion :
+{	Token token = null;
+}
+{
+    LOOKAHEAD(2)
+  	<  START_EXP > token=< GEXOMARKER > < END_EXP >
+	{
+	  	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+	}
+|
+    LOOKAHEAD(2)	<  START_EXP > token=< GERESULT > < END_EXP >
+	{
+	  	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+	}
+|
+    LOOKAHEAD(2)
+	<  START_EXP > token=< GECODONVALUE > <COLON > Expression() <COMMA > Expression() < END_EXP >
+	{
+	  	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue((token != null) ? token.image : "");
+	}
+}
+
+void Special() #Special :
+{
+      Token token = null;
+}
+{
+	< SPECIAL >  token = < SPECIALSEQ > < CSPECIAL >
+	{
+	 	//logger.finer(token.image);
+	  	jjtThis.jjtSetValue(token.image);
+	}
+}
+
+void Empty() #void :
+{}
+{	({})	{
+	  	if(estricto)
+     		throw new ParseException("Cadena vacía no soportada");	} 
+}
+
+
+
+
+
+

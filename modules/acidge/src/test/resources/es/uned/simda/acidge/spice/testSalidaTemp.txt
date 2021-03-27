@@ -1,0 +1,235 @@
+
+Circuit: circuito de prueba de temperatura
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+No. of Data Rows : 21
+
+No. of Data Rows : 1
+	Node                                  Voltage
+	----                                  -------
+	----	-------
+	V(4)                             1.003951e+00
+	V(3)                             9.998955e+00
+	V(2)                             1.752119e+00
+	V(1)                             2.000000e+01
+
+	Source	Current
+	------	-------
+
+	v1#branch                        -1.17916e-02
+
+ BJT models (Bipolar Junction Transistor)
+      model                2n2222
+
+       type                   npn
+       tnom                    27
+         is           3.88184e-14
+         bf               929.846
+         nf               1.10496
+        vaf               16.5003
+        ikf              0.019539
+        ise            1.0168e-11
+         ne               1.94752
+         br               48.4545
+         nr               1.07004
+        var                40.538
+        ikr               0.19539
+        isc            1.0168e-11
+         nc                     4
+         rb                   0.1
+        irb                   0.1
+        rbm                   0.1
+         re                0.0001
+         rc              0.426673
+        cje           2.23677e-11
+        vje              0.582701
+        mje               0.63466
+         tf           4.06711e-10
+        xtf               3.92912
+        vtf               17712.6
+        itf                0.4334
+        ptf                     0
+        cjc           2.23943e-11
+        vjc              0.576146
+        mjc              0.632796
+       xcjc                     1
+         tr                 1e-07
+        cjs                     0
+        vjs                  0.75
+        mjs                   0.5
+        xtb                   0.1
+         eg                  1.05
+        xti                     1
+         fc              0.170253
+         kf                     0
+         af                     1
+        iss                     0
+         ns                     1
+       tlev                     0
+      tlevc                     0
+       tbf1                     0
+       tbf2                     0
+       tbr1                     0
+       tbr2                     0
+      tikf1                     0
+      tikf2                     0
+      tikr1                     0
+      tikr2                     0
+      tirb1                     0
+      tirb2                     0
+       tnc1                     0
+       tnc2                     0
+       tne1                     0
+       tne2                     0
+       tnf1                     0
+       tnf2                     0
+       tnr1                     0
+       tnr2                     0
+       trb1                     0
+       trb2                     0
+       trc1                     0
+       trc2                     0
+       tre1                     0
+       tre2                     0
+       trm1                     0
+       trm2                     0
+      tvaf1                     0
+      tvaf2                     0
+      tvar1                     0
+      tvar2                     0
+        ctc                     0
+        cte                     0
+        cts                     0
+       tvjc                     0
+       tvje                     0
+       tvjs                     0
+      titf1                     0
+      titf2                     0
+       ttf1                     0
+       ttf2                     0
+       ttr1                     0
+       ttr2                     0
+      tmje1                     0
+      tmje2                     0
+      tmjc1                     0
+      tmjc2                     0
+      tmjs1                     0
+      tmjs2                     0
+       tns1                     0
+       tns2                     0
+        nkf                   0.5
+       tis1                     0
+       tis2                     0
+      tise1                     0
+      tise2                     0
+      tisc1                     0
+      tisc2                     0
+
+ Resistor models (Simple linear resistor)
+      model                     R
+
+        rsh                     0
+     narrow                     0
+      short                     0
+        tc1                     0
+        tc2                     0
+       defw                 1e-05
+         kf                     0
+         af                     0
+
+ BJT: Bipolar Junction Transistor
+     device                    q1
+      model                2n2222
+         ic              0.010001
+         ib           3.84684e-05
+         ie            -0.0100395
+        vbe              0.748163
+        vbc              -8.24257
+         gm              0.277858
+        gpi           0.000911626
+        gmu           1.00001e-12
+         gx                    10
+         go           0.000409236
+        cpi           1.60454e-10
+        cmu           3.98432e-12
+        cbx                     0
+       csub                     0
+
+ Resistor: Simple linear resistor
+     device                    r4                    r3                    r2
+      model                     R                     R                     R
+ resistance                   100                  1000                  1000
+         ac                   100                  1000                  1000
+      dtemp                     0                     0                     0
+      noisy                     1                     1                     1
+          i             0.0100395              0.010001            0.00175212
+          p             0.0100792              0.100021            0.00306992
+
+ Resistor: Simple linear resistor
+     device                    r1
+      model                     R
+ resistance                 10191
+         ac                 10191
+      dtemp                     0
+      noisy                     1
+          i            0.00179059
+          p             0.0326744
+
+ Vsource: Independent voltage source
+     device                    v1
+         dc                    20
+      acmag                     0
+      pulse         -
+       sine         -
+        sin         -
+        exp         -
+        pwl         -
+       sffm         -
+         am         -
+    trnoise         -
+   trrandom         -
+          i            -0.0117916
+          p              0.235833
+
+                       circuito de prueba de temperatura
+                       DC transfer characteristic  Tue Jan 14 19:03:03  2014
+--------------------------------------------------------------------------------
+Index   temp-sweep      v(4)            
+--------------------------------------------------------------------------------
+0	0.000000e+00	9.615936e-01	
+1	5.000000e+00	9.690894e-01	
+2	1.000000e+01	9.775192e-01	
+3	1.500000e+01	9.853813e-01	
+4	2.000000e+01	9.931652e-01	
+5	2.500000e+01	1.000882e+00	
+6	3.000000e+01	1.008539e+00	
+7	3.500000e+01	1.016142e+00	
+8	4.000000e+01	1.023696e+00	
+9	4.500000e+01	1.031203e+00	
+10	5.000000e+01	1.038668e+00	
+11	5.500000e+01	1.046093e+00	
+12	6.000000e+01	1.053482e+00	
+13	6.500000e+01	1.060836e+00	
+14	7.000000e+01	1.068157e+00	
+15	7.500000e+01	1.075449e+00	
+16	8.000000e+01	1.082712e+00	
+17	8.500000e+01	1.089949e+00	
+18	9.000000e+01	1.097160e+00	
+19	9.500000e+01	1.104348e+00	
+20	1.000000e+02	1.111513e+00	
+
+elapsed time since last call: 0.033 seconds.
+
+Total elapsed time: 0.033 seconds.
+
+Total DRAM available = 1000.746094 MB.
+DRAM currently available = 84.464844 MB.
+Total ngspice program size = 5.578125 MB.
+Resident set size = 790.000 kB.
+Shared ngspice pages = 601.000 kB.
+Text (code) pages = 1.115234 MB.
+Stack = 0 bytes.
+Library pages = 3.074219 MB.
+

@@ -1,0 +1,240 @@
+/*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/*
+ * TestCase para probar la clase Generador y las gramáticas testNetlistSensorBloquesBJT4.ebnf y testNetlistVrefBloquesBJT4.ebnf
+ */
+package es.uned.simda.acidge.generador.tests;
+
+//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
+
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import es.uned.simda.acidge.ge.GEProperties;
+import es.uned.simda.acidge.ge.Genotipo;
+import es.uned.simda.acidge.generador.GenException;
+import es.uned.simda.acidge.generador.Generador;
+import es.uned.simda.acidge.generador.GeneradorGrammar;
+import es.uned.simda.acidge.generador.gramatica.Gramatica;
+import es.uned.simda.acidge.generador.parser.ASTSyntax;
+import es.uned.simda.acidge.generador.parser.EBNFGrammar;
+import es.uned.simda.acidge.generador.parser.EBNFGrammarVisitor;
+import es.uned.simda.acidge.generador.parser.EBNFGrammarVisitorAGramatica;
+import es.uned.simda.acidge.generador.parser.ParseException;
+
+
+public class TestGeneradorNetlistBloquesBJT4 
+{
+	private final static Logger logger = Logger.getLogger(TestGeneradorNetlistBloquesBJT4.class.getName());
+	final static String newLine = String.format("%n");
+	final static String GRAMMARTEST1 = "testNetlistSensorBloquesBJT4.ebnf";
+	final static String GRAMMARTEST2 = "testNetlistVrefBloquesBJT4.ebnf";
+
+	Gramatica gramatica;
+	
+	@BeforeClass
+	public static void init()
+	{
+		es.uned.simda.acidge.util.Util.checkEA();
+		es.uned.simda.acidge.util.LoggerStart.trivialSetup(Level.FINE);
+	}
+	
+	String expectedSensor1 = 
+		"R 1 2 nulo2 1.0e0" + newLine +
+		"R 1 2 nulo2 1.0e0" + newLine +
+		"R 1 2 nulo2 1.0e0" + newLine +
+		"C 3 1 nulo1 1.0e-12" + newLine +
+		"C 3 1 nulo1 1.0e-12" + newLine +
+		"Q 1 2 3 Q2N3906 nulo1 nulo2" + newLine +
+		"Q 1 2 3 Q2N3906 nulo1 nulo2" + newLine;
+	
+	String expectedVref1 = 
+		"R 2 3 nulo2 1.0e0" + newLine +
+		"R 2 3 nulo2 1.0e0" + newLine +
+		"R 2 3 nulo2 1.0e0" + newLine +
+		"Q 4 2 0 Q2N3904 nulo1 nulo1" + newLine +
+		"Q 4 2 0 Q2N3904 nulo1 nulo1" + newLine +
+		"R 2 3 nulo2 1.0e9" + newLine +
+		"R 2 3 nulo2 1.0e9" + newLine;
+	
+	//La última línea no se decodifica
+	byte genes1[] = { 
+					1, 1, 2, 9, 0, 0, 0,
+					1, 1, 2, 9, 0, 0, 0,
+					1, 1, 2, 9, 0, 0, 0,
+					3, 3, 1, 0, 0, 0, 0,
+					3, 3, 1, 0, 0, 0, 0,
+					5, 1, 2, 3, 9, 0, 9, 
+					4, 1, 2, 3, 9, 0, 9, 
+					4, 1, 2, 3, 4, 5, 9 
+					};
+
+	String expectedSensor2 = 
+		"R 1 2 nulo2 1.0e0" + newLine +
+		"R 2 1 nulo2 2.4e5" + newLine +
+		"R 3 4 nulo2 3.8e9" + newLine +
+		"C 6 9 nulo1 2.2e-10" + newLine +
+		"C 7 9 nulo1 3.4e-3" + newLine +
+		"C 8 9 nulo1 3.8e-3" + newLine +
+		"Q 3 1 2 Q2N3904 nulo1 nulo2" + newLine +
+		"Q 5 6 0 Q2N3906 nulo2 nulo2" + newLine;
+
+	String expectedVref2 = 
+		"R 2 3 nulo2 1.0e0" + newLine +
+		"R 3 2 nulo2 2.4e5" + newLine +
+		"R 4 5 nulo2 3.8e9" + newLine +
+		"Q 7 0 0 Q2N3906 nulo1 nulo1" + newLine +
+		"Q 8 0 0 Q2N3904 nulo1 nulo2" + newLine +
+		"Q 9 0 0 Q2N3904 nulo1 nulo2" + newLine +
+		"R 4 2 nulo1 1.0e9" + newLine +
+		"R 6 7 nulo1 2.1e9" + newLine;
+	
+	byte genes2[] = { 
+					1, 1, 2, 9, 0, 0, 0,
+					1, 2, 1, 9, 1, 4, 5,
+					1, 3, 4, 9, 2, 8, 9,
+					3, 6, 9, 0, 1, 2, 2,
+					3, 7, 9, 0, 2, 4, 9,
+					3, 8, 9, 0, 2, 8, 9,
+					5, 3, 1, 2, 0, 0, 9,
+					4, 5, 6, 0, 1, 1, 9
+					};
+	
+	String expectedSensor3 = 
+		"R 1 2 nulo2 1.0e0" + newLine +
+		"Q 3 1 2 Q2N3904 nulo1 nulo2" + newLine +
+		"C 6 9 nulo2 2.2e-10" + newLine +
+		"R 2 1 nulo2 2.4e5" + newLine +
+		"R 3 4 nulo2 3.8e9" + newLine +
+		"C 8 9 nulo2 3.8e-3" + newLine +
+		"Q 5 6 0 Q2N3906 nulo2 nulo2" + newLine +
+		"C 7 9 nulo2 3.4e-3" + newLine;
+	
+	String expectedVref3 = 
+		"R 2 3 nulo2 1.0e0" + newLine +
+		"R 4 2 nulo1 1.0e9" + newLine +
+		"Q 7 0 0 Q2N3906 nulo1 nulo1" + newLine +
+		"R 3 2 nulo2 2.4e5" + newLine +
+		"R 4 5 nulo2 3.8e9" + newLine +
+		"Q 9 0 0 Q2N3904 nulo1 nulo2" + newLine +
+		"R 6 7 nulo1 2.1e9" + newLine +
+		"Q 8 0 0 Q2N3904 nulo1 nulo2" + newLine;
+	
+	byte genes3[] = { 
+					1, 1, 2, 9, 0, 0, 0,
+					5, 3, 1, 2, 0, 0, 9,
+					3, 6, 9, 9, 1, 2, 2,
+					1, 2, 1, 9, 1, 4, 5,
+					1, 3, 4, 9, 2, 8, 9,
+					3, 8, 9, 9, 2, 8, 9,
+					5, 5, 6, 0, 1, 1, 9,
+					2, 7, 9, 9, 2, 4, 9						
+					};
+	
+	@Test
+	public void test1() 
+	{
+		logger.info("test1");
+		
+		InputStream is = getClass().getResourceAsStream(GRAMMARTEST1);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes1, 0, 100, expectedSensor1);
+		
+		is = getClass().getResourceAsStream(GRAMMARTEST2);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes1, 0, 100, expectedVref1);
+	}
+
+	@Test
+	public void test2() 
+	{
+		logger.info("test2");
+		
+		InputStream is = getClass().getResourceAsStream(GRAMMARTEST1);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes2, 0, 100, expectedSensor2);
+		
+		
+		is = getClass().getResourceAsStream(GRAMMARTEST2);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes2, 0, 100, expectedVref2);
+	}
+
+	@Test
+	public void test3() 
+	{
+		logger.info("test3");
+		
+		InputStream is = getClass().getResourceAsStream(GRAMMARTEST1);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes3, 0, 100, expectedSensor3);
+				
+		is = getClass().getResourceAsStream(GRAMMARTEST2);
+		GeneradorGrammar.cargaGrama(is);
+		
+		motor(genes3, 0, 100, expectedVref3);
+	}
+	
+	public void motor(int [] genes, int MaxWrapping, int MaxRecursionLevel, String expected)
+	{	
+		//Aprovechamos el constructor que ademite cadenas de int
+		Genotipo dummy = new Genotipo(genes);
+		
+		motor(dummy.getGenes(), MaxWrapping, MaxRecursionLevel, expected);
+	}
+	
+	
+	public void motor(byte [] genes, int MaxWrapping, int MaxRecursionLevel, String expected)
+	{	
+		GEProperties geproperties = new GEProperties();
+		geproperties.setMaxWrappingNumber(MaxWrapping);
+		geproperties.setMaxRecursionLevel(MaxRecursionLevel);
+		
+		try
+		{
+			Generador gen = new GeneradorGrammar(genes, geproperties);
+			String actual = gen.genera();
+			logger.info("actual: " + actual);
+			logger.info("expected: " + expected);
+			
+			assertEquals(expected, actual);
+		}
+		catch(GenException e)
+		{
+			//e.printStackTrace();
+			logger.severe(e.getMessage());
+			fail(e.getMessage());
+		}
+	}
+
+	
+
+}

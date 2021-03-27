@@ -1,0 +1,242 @@
+parametros -n -b /home/ubuntu/workspace/GE/20160405_005304_765_1/netlist.cir
+Note: Starting dynamic gmin stepping
+Trying gmin =   1.0000E-03 Note: One successful gmin step
+Trying gmin =   1.0000E-04 Note: One successful gmin step
+Trying gmin =   1.0000E-05 Note: One successful gmin step
+Trying gmin =   1.0000E-06 Note: One successful gmin step
+Trying gmin =   1.0000E-07 Note: One successful gmin step
+Trying gmin =   1.0000E-08 Note: One successful gmin step
+Trying gmin =   1.0000E-09 Note: One successful gmin step
+Trying gmin =   1.0000E-10 Note: One successful gmin step
+Trying gmin =   1.0000E-11 Warning: Further gmin increment
+Trying gmin =   5.6234E-11 Note: One successful gmin step
+Trying gmin =   2.3714E-11 Note: One successful gmin step
+Trying gmin =   1.0000E-11 Warning: Further gmin increment
+Trying gmin =   1.9110E-11 Warning: Further gmin increment
+Trying gmin =   2.2468E-11 Note: One successful gmin step
+Trying gmin =   2.0721E-11 Note: One successful gmin step
+Trying gmin =   1.8352E-11 Note: One successful gmin step
+Trying gmin =   1.5296E-11 Note: One successful gmin step
+Trying gmin =   1.2749E-11 Note: One successful gmin step
+Trying gmin =   9.7010E-12 Note: One successful gmin step
+Trying gmin =   6.4393E-12 Note: One successful gmin step
+Trying gmin =   3.4823E-12 Note: One successful gmin step
+Trying gmin =   1.8832E-12 Note: One successful gmin step
+Trying gmin =   1.0184E-12 Note: One successful gmin step
+Trying gmin =   1.0000E-12 Warning: Further gmin increment
+Trying gmin =   1.0138E-12 Note: One successful gmin step
+Trying gmin =   1.0069E-12 Note: One successful gmin step
+Trying gmin =   1.0034E-12 Warning: Further gmin increment
+Trying gmin =   1.0060E-12 Note: One successful gmin step
+Trying gmin =   1.0047E-12 Note: One successful gmin step
+Trying gmin =   1.0028E-12 Warning: Further gmin increment
+Trying gmin =   1.0042E-12 Warning: Further gmin increment
+Trying gmin =   1.0046E-12 Note: One successful gmin step
+Trying gmin =   1.0044E-12 Warning: Further gmin increment
+Trying gmin =   1.0046E-12 Note: One successful gmin step
+Trying gmin =   1.0045E-12 Warning: Last gmin step failed
+Note: Dynamic gmin stepping completed
+
+Circuit: circuitos computacionales ge netlist
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+1                                        -0.25
+4                                           15
+5                                          -15
+2                                        -0.25
+3                                  2.24253e-08
+11                                    0.170465
+9                                      14.8388
+14                                     7.10513
+8                                            0
+15                                           0
+10                                           0
+v3#branch                              1.5e-08
+v2#branch                         -6.11244e-11
+v1#branch                          5.77311e-12
+
+doAnalyses: TRAN:  Timestep too small; time = 0.000650174, timestep = 2.5e-15: trouble with node "v2#branch"
+
+
+run simulation(s) aborted
+                      circuitos computacionales ge netlist
+                      Transient Analysis  Tue Apr  5 00:53:11  2016
+--------------------------------------------------------------------------------
+Index   time            v(3)            
+--------------------------------------------------------------------------------
+0	0.000000e+00	2.242526e-08	
+1	2.000000e-05	3.670081e-08	
+2	4.000000e-05	3.675287e-08	
+3	8.000000e-05	3.692125e-08	
+4	1.600000e-04	3.988119e-08	
+5	3.200000e-04	3.858602e-08	
+6	3.600000e-04	3.626962e-08	
+7	4.400000e-04	3.625607e-08	
+8	6.000000e-04	3.880368e-08	
+9	6.400000e-04	3.729332e-08	
+10	6.500000e-04	3.702655e-08	
+11	6.500391e-04	3.708794e-08	
+12	6.500403e-04	3.725169e-08	
+13	6.500427e-04	3.762573e-08	
+14	6.500433e-04	3.733525e-08	
+15	6.500446e-04	3.689316e-08	
+16	6.500470e-04	3.722322e-08	
+17	6.500476e-04	3.717556e-08	
+18	6.500488e-04	3.711520e-08	
+19	6.500513e-04	3.762066e-08	
+20	6.500562e-04	3.737118e-08	
+21	6.500659e-04	3.598389e-08	
+22	6.500854e-04	3.633383e-08	
+23	6.500903e-04	3.580935e-08	
+24	6.501001e-04	3.541618e-08	
+25	6.501196e-04	3.561961e-08	
+26	6.501587e-04	3.805925e-08	
+27	6.501685e-04	3.708809e-08	
+28	6.501709e-04	3.767626e-08	
+29	6.501715e-04	3.754848e-08	
+30	6.501727e-04	3.741564e-08	
+31	6.501730e-04	3.758104e-08	
+32	6.501736e-04	3.752224e-08	
+33	6.501738e-04	3.733080e-08	
+34	6.501741e-04	3.716255e-08	
+35	6.501741e-04	3.717419e-08	
+36	6.501741e-04	3.718485e-08	
+37	6.501742e-04	3.719667e-08	
+38	6.501742e-04	3.720764e-08	
+39	6.501743e-04	3.719466e-08	
+40	6.501743e-04	3.719469e-08	
+41	6.501743e-04	3.719465e-08	
+42	6.501743e-04	3.719415e-08	
+43	6.501743e-04	3.719406e-08	
+44	6.501743e-04	3.719374e-08	
+45	6.501743e-04	3.719351e-08	
+46	6.501743e-04	3.719311e-08	
+47	6.501743e-04	3.719209e-08	
+48	6.501743e-04	3.719076e-08	
+49	6.501743e-04	3.719015e-08	
+50	6.501743e-04	3.718977e-08	
+51	6.501743e-04	3.718975e-08	
+52	6.501743e-04	3.718983e-08	
+53	6.501743e-04	3.718990e-08	
+54	6.501743e-04	3.718984e-08	
+
+Index   time            v(3)            
+--------------------------------------------------------------------------------
+55	6.501743e-04	3.718982e-08	
+56	6.501743e-04	3.718982e-08	
+57	6.501743e-04	3.718969e-08	
+58	6.501743e-04	3.718955e-08	
+59	6.501743e-04	3.718965e-08	
+60	6.501743e-04	3.718949e-08	
+61	6.501743e-04	3.718949e-08	
+62	6.501743e-04	3.718963e-08	
+63	6.501743e-04	3.718945e-08	
+64	6.501743e-04	3.718944e-08	
+65	6.501743e-04	3.718950e-08	
+66	6.501743e-04	3.718927e-08	
+67	6.501743e-04	3.718939e-08	
+68	6.501743e-04	3.718945e-08	
+69	6.501743e-04	3.718926e-08	
+70	6.501743e-04	3.718922e-08	
+71	6.501743e-04	3.718926e-08	
+72	6.501743e-04	3.718889e-08	
+73	6.501743e-04	3.718909e-08	
+74	6.501743e-04	3.718910e-08	
+75	6.501743e-04	3.718913e-08	
+76	6.501743e-04	3.718913e-08	
+77	6.501743e-04	3.718918e-08	
+78	6.501743e-04	3.718906e-08	
+79	6.501743e-04	3.718894e-08	
+80	6.501743e-04	3.718888e-08	
+81	6.501743e-04	3.718880e-08	
+82	6.501743e-04	3.718881e-08	
+83	6.501743e-04	3.718886e-08	
+84	6.501743e-04	3.718853e-08	
+85	6.501743e-04	3.718842e-08	
+86	6.501743e-04	3.718847e-08	
+87	6.501743e-04	3.718855e-08	
+88	6.501743e-04	3.718850e-08	
+89	6.501743e-04	3.718838e-08	
+90	6.501743e-04	3.718813e-08	
+91	6.501743e-04	3.718809e-08	
+92	6.501743e-04	3.718807e-08	
+93	6.501743e-04	3.718804e-08	
+94	6.501743e-04	3.718828e-08	
+95	6.501743e-04	3.718823e-08	
+96	6.501743e-04	3.718818e-08	
+97	6.501743e-04	3.718811e-08	
+98	6.501743e-04	3.718800e-08	
+99	6.501743e-04	3.718786e-08	
+100	6.501743e-04	3.718785e-08	
+101	6.501743e-04	3.718783e-08	
+102	6.501743e-04	3.718756e-08	
+103	6.501743e-04	3.718746e-08	
+104	6.501743e-04	3.718748e-08	
+105	6.501743e-04	3.718751e-08	
+106	6.501743e-04	3.718745e-08	
+107	6.501743e-04	3.718737e-08	
+108	6.501743e-04	3.718718e-08	
+109	6.501743e-04	3.718717e-08	
+110	6.501743e-04	3.718710e-08	
+111	6.501743e-04	3.718692e-08	
+112	6.501743e-04	3.718691e-08	
+
+Index   time            v(3)            
+--------------------------------------------------------------------------------
+113	6.501743e-04	3.718677e-08	
+114	6.501743e-04	3.718649e-08	
+115	6.501743e-04	3.718663e-08	
+116	6.501743e-04	3.718670e-08	
+117	6.501743e-04	3.718656e-08	
+118	6.501743e-04	3.718647e-08	
+119	6.501743e-04	3.718641e-08	
+120	6.501743e-04	3.718619e-08	
+121	6.501743e-04	3.718642e-08	
+122	6.501743e-04	3.718617e-08	
+123	6.501743e-04	3.718592e-08	
+124	6.501743e-04	3.718592e-08	
+125	6.501743e-04	3.718589e-08	
+126	6.501743e-04	3.718563e-08	
+127	6.501743e-04	3.718571e-08	
+128	6.501743e-04	3.718569e-08	
+129	6.501743e-04	3.718572e-08	
+130	6.501743e-04	3.718589e-08	
+131	6.501743e-04	3.718580e-08	
+132	6.501743e-04	3.718570e-08	
+133	6.501743e-04	3.718565e-08	
+134	6.501743e-04	3.718572e-08	
+135	6.501743e-04	3.718573e-08	
+136	6.501743e-04	3.718552e-08	
+137	6.501743e-04	3.718576e-08	
+138	6.501743e-04	3.718554e-08	
+139	6.501743e-04	3.718508e-08	
+140	6.501743e-04	3.718527e-08	
+141	6.501743e-04	3.718525e-08	
+142	6.501743e-04	3.718526e-08	
+143	6.501743e-04	3.718512e-08	
+144	6.501743e-04	3.718506e-08	
+145	6.501743e-04	3.718528e-08	
+146	6.501743e-04	3.718517e-08	
+147	6.501743e-04	3.718522e-08	
+148	6.501743e-04	3.718510e-08	
+
+elapsed time since last call: 0.107 seconds.
+
+Total elapsed time: 0.107 seconds.
+
+Total DRAM available = 3786.902344 MB.
+DRAM currently available = 2346.363281 MB.
+Total ngspice program size = 21.044922 MB.
+Resident set size = 1.405273 MB.
+Shared ngspice pages = 680.000 kB.
+Text (code) pages = 1.344727 MB.
+Stack = 0 bytes.
+Library pages = 6.000977 MB.
+

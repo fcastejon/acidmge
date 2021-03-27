@@ -1,0 +1,91 @@
+(*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*)
+(*
+ * netlistVrefBloquesSRM.ebnf
+ *
+ * Para el circuito de referencia de voltaje
+ *
+ * Gramática de generación de netlist utilizando bloques de componentes
+ * Considera que va a haber una cabecera y un pie, por lo que sólo se centra en componentes ajenos a la parte fija.  
+ * Requiere filtrar parámetros con valor nulo en los componentes, también renumerado de componentes
+ *
+ * Introduce resistencias y transistores PNP y NPN
+ *
+ * Bloques de tamaño 7 bytes, permite 10 nodos nuevos, no permite el nodo 1
+ *
+ * Dos partes por componentes: tipo + continuación, nodo1, nodo2, nodo3 (opcional)
+ * segunda parte: valor resistencia, dummy o tipo transistor
+ *
+ * Permite 2 subcircuitos con 2 nodos de conexión y 2 nodos locales más
+ *)
+
+LIST = SUBCKT1, SUBCKT2, CIR;
+
+SUBCKT1 = ".subckt sub1 1 2", EOL, SUBLINEA, ENDS;
+
+SUBCKT2 = ".subckt sub2 1 2", EOL, SUBLINEA, ENDS;
+
+CIR = LINEA; 
+
+SUBLINEA = RESISTENCIA | RESISTENCIA, SUBLINEA | BJT | BJT, SUBLINEA ;
+
+SUBRESISTENCIA =  "R", SEP, subnodo, SEP, subnodo, SEP, dummy, SEP, ValorResistencia, EOL; 
+
+SUBBJT = "Q", SEP, subnodo, SEP, subnodo, SEP, subnodo, SEP, TipoBJT, SEP, dummy, SEP, dummy, EOL;
+
+LINEA = RESISTENCIA | RESISTENCIA, LINEA | BJT | BJT, LINEA | SUB1 | SUB1, LINEA | SUB2 | SUB2, LINEA;
+
+RESISTENCIA =  "R", SEP, nodo, SEP, nodo, SEP, dummy, SEP, ValorResistencia, EOL; 
+
+BJT = "Q", SEP, nodo, SEP, nodo, SEP, nodo, SEP, TipoBJT, SEP, dummy, SEP, dummy, EOL;
+
+(* 2N3904 es NPN y 2N3906 es PNP *)
+TipoBJT = "Q2N3904" | "Q2N3906";
+
+SUB1 = "X", SEP, "sub1", SEP, nodo, SEP, nodo, SEP, dummy, SEP, dummy, SEP, dummy, SEP, dummy, EOL;
+
+SUB2 = "X", SEP, "sub2", SEP, nodo, SEP, nodo, SEP, dummy, SEP, dummy, SEP, dummy, SEP, dummy, EOL;
+
+dummy = 'nulo1' | 'nulo2'; 
+
+(* 10 nodos nuevos, parte fija 4, nodo 1 no se puede generar para evitar puentear resistencia de fuente *)
+nodo = '0' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12' | '13';
+
+(* 2 nodos locales para los subcircuitos *)
+subnodo = '0' | '1' | '2' | '3' | '4';
+	
+ValorResistencia = digitonocero, DECIMAL, digito, EXP, digito; 
+
+digito = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+digitonocero = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+ENDS = ".ends", EOL;
+
+SEP = ' ';
+
+EXP = 'e';
+
+DECIMAL = '.';
+
+EOL = ?EOL?;
+
+CR = ?Carriage return?;
+

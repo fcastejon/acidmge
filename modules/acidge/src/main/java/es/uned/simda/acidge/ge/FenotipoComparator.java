@@ -1,0 +1,56 @@
+/*
+**  Analog Circuit Design using Grammatical Evolution (ACID-GE)
+**  Analog Circuit Design using Multigrammatical Evolution (ACID-MGE)
+**
+**  Copyright (c) 2021 Federico Castejon, Enrique J. Carmona
+**
+**  This program is free software: you can redistribute it and/or modify
+**  it under the terms of the GNU General Public License as published by
+**  the Free Software Foundation, either version 3 of the License, or
+**  (at your option) any later version.
+**
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU General Public License for more details.
+**
+**  You should have received a copy of the GNU General Public License
+**  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/*
+ * FenotipoComparator
+ * 
+ * Permite ordenar una población de Fenotipo por otro criterio aparte de fitness (orden natural)
+ * 
+ * El orden introducido es por edad y en segundo lugar por fitness
+ * 
+ * Se considera mayor un fenotipo con más edad (menor generación) y luego con mayor fitness
+ * 
+ * La ordenación de Población es creciente
+ */
+package es.uned.simda.acidge.ge;
+
+import java.util.Comparator;
+import java.util.logging.Logger;
+
+public class FenotipoComparator implements Comparator<Fenotipo>
+{
+	private final static Logger logger = Logger.getLogger(FenotipoComparator.class.getName());
+
+	@Override
+	public int compare(Fenotipo f1, Fenotipo f2) 
+	{
+		if(f1.getGeneracion() < f2.getGeneracion())
+			return 1;
+		else if(f1.getGeneracion() > f2.getGeneracion())
+			return -1;
+		else if(f1.getFitness() > f2.getFitness())
+			return 1;
+		else if(f1.getFitness() < f2.getFitness())
+			return -1;
+		else 
+			return 0;
+	}
+
+
+}
